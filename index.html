@@ -440,50 +440,98 @@
     .footer-inner{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
 
 
-    .video-grid{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:16px;
+    /* Video Shelf Marquee */
+    .video-shelf-section {
+      padding: 60px 0 90px;
+      position: relative;
+      overflow: hidden;
     }
 
-    .video-card{
-      overflow:hidden;
-      border:1px solid var(--line);
-      border-radius:24px;
-      background:linear-gradient(180deg,rgba(17,24,36,.96),rgba(10,14,21,.96));
-      box-shadow:0 18px 60px rgba(0,0,0,.18);
+    .video-marquee-wrap {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
+      padding: 16px 0;
+      margin-bottom: 20px;
     }
 
-    .video-frame{
-      position:relative;
-      aspect-ratio:16/9;
-      background:#05070a;
-      overflow:hidden;
+    .video-marquee-track {
+      display: flex;
+      gap: 22px;
+      width: max-content;
+      animation: marquee-left 40s linear infinite;
     }
 
-    .video-frame iframe{
-      position:absolute;
-      inset:0;
-      width:100%;
-      height:100%;
-      border:0;
+    .video-marquee-track.reverse {
+      animation: marquee-right 45s linear infinite;
     }
 
-    .video-info{padding:20px}
-    .video-label{
-      display:inline-flex;
-      align-items:center;
-      gap:7px;
-      color:#ffc47a;
-      font-size:.76rem;
-      font-weight:800;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      margin-bottom:9px;
+    .video-marquee-track:hover {
+      animation-play-state: paused;
     }
 
-    .video-info h3{margin-bottom:8px}
-    .video-info p{color:var(--muted);line-height:1.55;font-size:.9rem;margin-bottom:0}
+    @keyframes marquee-left {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    @keyframes marquee-right {
+      0% { transform: translateX(-50%); }
+      100% { transform: translateX(0); }
+    }
+
+    .video-card {
+      width: 380px;
+      flex: 0 0 380px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: linear-gradient(180deg, rgba(20, 28, 42, 0.92), rgba(10, 14, 21, 0.96));
+      backdrop-filter: blur(12px);
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.4);
+      transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .video-card:hover {
+      transform: translateY(-6px) scale(1.02);
+      border-color: rgba(255, 149, 0, 0.45);
+      box-shadow: 0 22px 60px rgba(255, 120, 0, 0.22);
+    }
+
+    .video-frame {
+      position: relative;
+      aspect-ratio: 16/9;
+      background: #05070a;
+      overflow: hidden;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .video-frame iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .video-info { padding: 18px 20px; }
+
+    .video-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: #ffc47a;
+      font-size: .74rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .video-info h3 { margin-bottom: 6px; font-size: 1.05rem; }
+    .video-info p { color: var(--muted); line-height: 1.5; font-size: .88rem; margin-bottom: 0; }
 
     .conversion-row{
       display:grid;
@@ -691,7 +739,7 @@
     }
 
     @media(max-width:980px){
-      .video-grid{grid-template-columns:1fr}
+      .video-card{width:310px; flex:0 0 310px}
       .conversion-row{grid-template-columns:1fr}
     }
 
@@ -764,7 +812,7 @@
         </div>
 
         <div class="hero-visual" aria-label="Visual do OSONE">
-          <img src="osone-hero.jpg" alt="Pessoa observando uma esfera neural luminosa representando a inteligência artificial OSONE" />
+          <img src="osone-orb.jpg" alt="Esfera neural dourada e luminosa com conexões de inteligência artificial OSONE" />
           <div class="visual-shade"></div>
           <div class="floating-badge badge-top">
             <span class="badge-dot purple"></span>
@@ -775,7 +823,184 @@
             <div><b>Agent Loop</b><small>interpreta → executa → observa → continua</small></div>
           </div>
           <div class="visual-orb-label">OSONE CORE</div>
-        </div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MOVED UP: Video Shelf Section right after Hero -->
+    <section id="demos" class="video-shelf-section">
+      <div class="container">
+        <div class="section-head" style="text-align: center; margin-inline: auto;">
+          <div class="kicker">Prateleira de Demonstrações</div>
+          <h2>OSONE em ação em tempo real.</h2>
+          <p>Passe o mouse sobre qualquer amostra para pausar o movimento e interagir com os vídeos.</p>
+        </div>
+      </div>
+
+      <!-- Fileira 1: Movimento para a Esquerda -->
+      <div class="video-marquee-wrap">
+        <div class="video-marquee-track">
+          <article class="video-card">
+            <div class="video-frame">
+              <iframe src="https://www.youtube.com/embed/4LWKf-DAGEY" title="Demonstração OSONE 1" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+            <div class="video-info">
+              <div class="video-label">▶ Demonstração 01</div>
+              <h3>OSONE funcionando na prática</h3>
+              <p>Uma visão direta do aplicativo executando tarefas e interagindo com ferramentas.</p>
+            </div>
+          </article>
+
+          <article class="video-card">
+            <div class="video-frame">
+              <iframe src="https://www.youtube.com/embed/XX1ptFVOy04" title="Demonstração OSONE 2" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+            <div class="video-info">
+              <div class="video-label">▶ Demonstração 02</div>
+              <h3>Automação e interação</h3>
+              <p>Veja como a IA combina instruções, navegador e execução de ações em sequência.</p>
+            </div>
+          </article>
+
+          <article class="video-card">
+            <div class="video-frame">
+              <iframe src="https://www.youtube.com/embed/H-TYY2GcfuU" title="Demonstração OSONE 3" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+            <div class="video-info">
+              <div class="video-label">▶ Demonstração 03</div>
+              <h3>Mais possibilidades do OSONE</h3>
+              <p>Conheça a versatilidade e as integrações em ambiente real.</p>
+            </div>
+          </article>
+
+          <!-- Duplicados para loop contínuo -->
+          <article class="video-card">
+            <div class="video-frame">
+              <iframe src="https://www.youtube.com/embed/4LWKf-DAGEY" title="Demonstração OSONE 1" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+            <div class="video-info">
+              <div class="video-label">▶ Demonstração 01</div>
+              <h3>OSONE funcionando na prática</h3>
+              <p>Uma visão direta do aplicativo executando tarefas e interagindo com ferramentas.</p>
+            </div>
+          </article>
+
+          <article class="video-card">
+            <div class="video-frame">
+              <iframe src="https://www.youtube.com/embed/XX1ptFVOy04" title="Demonstração OSONE 2" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+            <div class="video-info">
+              <div class="video-label">▶ Demonstração 02</div>
+              <h3>Automação e interação</h3>
+              <p>Veja como a IA combina instruções, navegador e execução de ações em sequência.</p>
+            </div>
+          </article>
+
+          <article class="video-card">
+            <div class="video-frame">
+              <iframe src="https://www.youtube.com/embed/H-TYY2GcfuU" title="Demonstração OSONE 3" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+            <div class="video-info">
+              <div class="video-label">▶ Demonstração 03</div>
+              <h3>Mais possibilidades do OSONE</h3>
+              <p>Conheça a versatilidade e as integrações em ambiente real.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <!-- Fileira 2: Movimento em sentido Direita/Inverso -->
+      <div class="video-marquee-wrap">
+        <div class="video-marquee-track reverse">
+          <article class="video-card">
+            <div class="video-frame">
+              <iframe src="https://www.youtube.com/embed/XX1ptFVOy04" title="Demonstração OSONE 2" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+            <div class="video-info">
+              <div class="video-label">▶ Automação de Telas</div>
+              <h3>Navegação e fluxo inteligente</h3>
+              <p>Agente interpretando a interface e executando cliques direcionados.</p>
+            </div>
+          </article>
+
+          <article class="video-card">
+            <div class="video-frame">
+              <iframe src="https://www.youtube.com/embed/H-TYY2GcfuU" title="Demonstração OSONE 3" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+            <div class="video-info">
+              <div class="video-label">▶ Ferramentas Conectadas</div>
+              <h3>Terminal, voz e WhatsApp</h3>
+              <p>Conexão entre múltiplos canais e comandos do sistema operacional.</p>
+            </div>
+          </article>
+
+          <article class="video-card">
+            <div class="video-frame">
+              <iframe src="https://www.youtube.com/embed/4LWKf-DAGEY" title="Demonstração OSONE 1" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+            <div class="video-info">
+              <div class="video-label">▶ Execução Real</div>
+              <h3>OSONE em Ação</h3>
+              <p>Exemplo de integração completa com APIs e modelos em tempo real.</p>
+            </div>
+          </article>
+
+          <!-- Duplicados para loop contínuo -->
+          <article class="video-card">
+            <div class="video-frame">
+              <iframe src="https://www.youtube.com/embed/XX1ptFVOy04" title="Demonstração OSONE 2" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+            <div class="video-info">
+              <div class="video-label">▶ Automação de Telas</div>
+              <h3>Navegação e fluxo inteligente</h3>
+              <p>Agente interpretando a interface e executando cliques direcionados.</p>
+            </div>
+          </article>
+
+          <article class="video-card">
+            <div class="video-frame">
+              <iframe src="https://www.youtube.com/embed/H-TYY2GcfuU" title="Demonstração OSONE 3" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+            <div class="video-info">
+              <div class="video-label">▶ Ferramentas Conectadas</div>
+              <h3>Terminal, voz e WhatsApp</h3>
+              <p>Conexão entre múltiplos canais e comandos do sistema operacional.</p>
+            </div>
+          </article>
+
+          <article class="video-card">
+            <div class="video-frame">
+              <iframe src="https://www.youtube.com/embed/4LWKf-DAGEY" title="Demonstração OSONE 1" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+            <div class="video-info">
+              <div class="video-label">▶ Execução Real</div>
+              <h3>OSONE em Ação</h3>
+              <p>Exemplo de integração completa com APIs e modelos em tempo real.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="conversion-row">
+          <div class="conversion-card highlight">
+            <div class="kicker">Acesso</div>
+            <h3>Quer usar o OSONE?</h3>
+            <p>O acesso pode ser adquirido pela página oficial de pagamento na Kiwify.</p>
+            <div class="mini-actions">
+              <a class="btn btn-primary" href="https://pay.kiwify.com.br/l0QNIqb" target="_blank" rel="noopener">Comprar pela Kiwify →</a>
+            </div>
+          </div>
+
+          <div class="conversion-card">
+            <div class="kicker">Comunidade</div>
+            <h3>Entre no WhatsApp</h3>
+            <p>Acesse o grupo para acompanhar novidades, conversar sobre o OSONE e ficar perto da comunidade.</p>
+            <div class="mini-actions">
+              <a class="btn btn-secondary" href="https://chat.whatsapp.com/ES97PyxHO8j9MA9Vm2H1ui?s=cl&p=a&ilr=1" target="_blank" rel="noopener">Entrar no WhatsApp</a>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -823,90 +1048,6 @@
             <h3>WhatsApp automatizado</h3>
             <p>Integração via Baileys para criar fluxos de atendimento, respostas automáticas e geração contínua de áudio quando configurada.</p>
           </article>
-        </div>
-      </div>
-    </section>
-
-
-    <section id="demos">
-      <div class="container">
-        <div class="section-head">
-          <div class="kicker">Veja funcionando</div>
-          <h2>OSONE em ação, sem truque de apresentação.</h2>
-          <p>Confira demonstrações reais do aplicativo trabalhando com IA, automação e ferramentas conectadas.</p>
-        </div>
-
-        <div class="video-grid">
-          <article class="video-card">
-            <div class="video-frame">
-              <iframe
-                src="https://www.youtube.com/embed/4LWKf-DAGEY"
-                title="Demonstração OSONE 1"
-                loading="lazy"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen>
-              </iframe>
-            </div>
-            <div class="video-info">
-              <div class="video-label">▶ Demonstração 01</div>
-              <h3>OSONE funcionando na prática</h3>
-              <p>Uma visão direta do aplicativo executando tarefas e interagindo com ferramentas.</p>
-            </div>
-          </article>
-
-          <article class="video-card">
-            <div class="video-frame">
-              <iframe
-                src="https://www.youtube.com/embed/XX1ptFVOy04"
-                title="Demonstração OSONE 2"
-                loading="lazy"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen>
-              </iframe>
-            </div>
-            <div class="video-info">
-              <div class="video-label">▶ Demonstração 02</div>
-              <h3>Automação e interação</h3>
-              <p>Veja como a IA pode combinar instruções, navegador e execução de ações em sequência.</p>
-            </div>
-          </article>
-
-          <article class="video-card">
-            <div class="video-frame">
-              <iframe
-                src="https://www.youtube.com/embed/H-TYY2GcfuU"
-                title="Demonstração OSONE 3"
-                loading="lazy"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen>
-              </iframe>
-            </div>
-            <div class="video-info">
-              <div class="video-label">▶ Demonstração 03</div>
-              <h3>Mais possibilidades do OSONE</h3>
-              <p>Outra demonstração para você entender a proposta antes de adquirir o aplicativo.</p>
-            </div>
-          </article>
-        </div>
-
-        <div class="conversion-row">
-          <div class="conversion-card highlight">
-            <div class="kicker">Acesso</div>
-            <h3>Quer usar o OSONE?</h3>
-            <p>O acesso pode ser adquirido pela página oficial de pagamento na Kiwify.</p>
-            <div class="mini-actions">
-              <a class="btn btn-primary" href="https://pay.kiwify.com.br/l0QNIqb" target="_blank" rel="noopener">Comprar pela Kiwify →</a>
-            </div>
-          </div>
-
-          <div class="conversion-card">
-            <div class="kicker">Comunidade</div>
-            <h3>Entre no WhatsApp</h3>
-            <p>Acesse o grupo para acompanhar novidades, conversar sobre o OSONE e ficar perto da comunidade.</p>
-            <div class="mini-actions">
-              <a class="btn btn-secondary" href="https://chat.whatsapp.com/ES97PyxHO8j9MA9Vm2H1ui?s=cl&p=a&ilr=1" target="_blank" rel="noopener">Entrar no WhatsApp</a>
-            </div>
-          </div>
         </div>
       </div>
     </section>
